@@ -27,15 +27,10 @@ class CellTest {
     }
 
     @Test
-    void shouldHaveLinkedCell() {
-        Cell linkedCell = mock(Cell.class);
-        cell.linkCell(linkedCell);
-        assertThat(cell.containsCell(linkedCell), is(true));
-    }
-
-    @Test
     void shouldNotHaveLinkedCell() {
         Cell linkedCell = mock(Cell.class);
         assertThat(cell.containsCell(linkedCell), is(false));
     }
+
+    // TODO finish test
 }
