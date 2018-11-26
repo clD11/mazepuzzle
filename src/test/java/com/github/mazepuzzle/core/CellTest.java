@@ -3,8 +3,8 @@ package com.github.mazepuzzle.core;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.mock;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.*;
 
 class CellTest {
 
@@ -12,13 +12,30 @@ class CellTest {
 
     @Test
     void shouldLinkCellBidirectional() {
-
+        Cell linkedCell = new Cell(1, 1);
+        cell.linkCell(linkedCell);
+        assertThat(cell.containsCell(linkedCell), is(true));
+        assertThat(linkedCell.containsCell(cell), is(true));
     }
 
     @Test
-    void shouldNotContainCell() {
+    void shouldNotLinkCellWhenAlreadyLinked() {
+        Cell linkedCell = mock(Cell.class);
+        when(linkedCell.containsCell(cell)).thenReturn(true);
+        cell.linkCell(linkedCell);
+        verify(linkedCell, never()).linkCell(cell);
+    }
+
+    @Test
+    void shouldHaveLinkedCell() {
         Cell linkedCell = mock(Cell.class);
         cell.linkCell(linkedCell);
         assertThat(cell.containsCell(linkedCell), is(true));
+    }
+
+    @Test
+    void shouldNotHaveLinkedCell() {
+        Cell linkedCell = mock(Cell.class);
+        assertThat(cell.containsCell(linkedCell), is(false));
     }
 }

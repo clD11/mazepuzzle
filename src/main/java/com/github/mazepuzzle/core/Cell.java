@@ -17,6 +17,9 @@ public class Cell {
 
     public void linkCell(Cell cell) {
         this.linkedCells.put(cell, true);
+        if (!cell.containsCell(this)) {
+            cell.linkCell(this);
+        }
     }
 
     public void unlinkCell(Cell cell) {
