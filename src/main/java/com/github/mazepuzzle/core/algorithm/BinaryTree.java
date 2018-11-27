@@ -18,16 +18,16 @@ public class BinaryTree {
             neighbours = new ArrayList<>();
 
             if (cell.getNorth() != null) {
-                neighbours.add(cell);
+                neighbours.add(cell.getNorth());
             }
 
             if (cell.getEast() != null) {
-                neighbours.add(cell);
+                neighbours.add(cell.getEast());
             }
 
             if (!neighbours.isEmpty()) {
-                cell.linkCell(neighbours.get(random.nextInt(
-                        neighbours.size())));
+                Cell randomNeighbour = neighbours.get(random.nextInt(neighbours.size()));
+                cell.linkCell(randomNeighbour);
             }
 
         }

@@ -83,19 +83,33 @@ public class Cell {
         }
 
         if (south != null) {
-            neighbours.add(north);
+            neighbours.add(south);
         }
 
         if (east != null) {
-            neighbours.add(north);
+            neighbours.add(east);
         }
 
         if (west != null) {
-            neighbours.add(north);
+            neighbours.add(west);
         }
 
         return neighbours;
     }
 
     // TODO add equals and hash so remove works
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return row == cell.row &&
+                column == cell.column;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
+    }
 }

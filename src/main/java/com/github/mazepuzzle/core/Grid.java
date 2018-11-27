@@ -62,4 +62,40 @@ public class Grid {
     public int size() {
         return rows * columns;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n+");
+
+        for (int column = 0; column < columns; ++column) {
+            sb.append("---+");
+        }
+
+        sb.append("\n");
+
+        for (int row = 0; row < rows; ++row) {
+
+            StringBuilder top = new StringBuilder();
+            top.append("|");
+
+            StringBuilder bottom = new StringBuilder();
+            bottom.append("+");
+
+            for (int column = 0; column < columns; ++column) {
+                Cell cell = grid[row][column];
+
+                String eastBoundary = cell.containsCell(cell.getEast()) ? " " : "|";
+                top.append("   " + eastBoundary);
+
+                String southBoundary = cell.containsCell(cell.getSouth()) ? "   " : "---";
+                bottom.append(southBoundary + "+");
+            }
+
+            sb.append(top.toString() + "\n");
+            sb.append(bottom.toString() + "\n");
+        }
+
+        return sb.toString();
+    }
 }
