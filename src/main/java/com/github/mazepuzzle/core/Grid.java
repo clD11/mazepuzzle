@@ -85,10 +85,10 @@ public class Grid {
             for (int column = 0; column < columns; ++column) {
                 Cell cell = grid[row][column];
 
-                String eastBoundary = cell.containsCell(cell.getEast()) ? " " : "|";
+                String eastBoundary = cell.hasLink(cell.getEast()) ? " " : "|";
                 top.append("   " + eastBoundary);
 
-                String southBoundary = cell.containsCell(cell.getSouth()) ? "   " : "---";
+                String southBoundary = cell.hasLink(cell.getSouth()) ? "   " : "---";
                 bottom.append(southBoundary + "+");
             }
 

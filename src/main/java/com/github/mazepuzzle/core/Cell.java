@@ -53,25 +53,25 @@ public class Cell {
         this.west = west;
     }
 
-    public void linkCell(Cell cell) {
+    public void addLink(Cell cell) {
         this.linkedCells.put(cell, true);
-        if (!cell.containsCell(this)) {
-            cell.linkCell(this);
+        if (!cell.hasLink(this)) {
+            cell.addLink(this);
         }
     }
 
-    public void unlinkCell(Cell cell) {
+    public void removeLink(Cell cell) {
         this.linkedCells.remove(cell);
-        if (cell.containsCell(this)) {
-            cell.unlinkCell(this);
+        if (cell.hasLink(this)) {
+            cell.removeLink(this);
         }
     }
 
-    public boolean containsCell(Cell cell) {
+    public boolean hasLink(Cell cell) {
         return this.linkedCells.containsKey(cell);
     }
 
-    public Set<Cell> cells() {
+    public Set<Cell> allLinkedCells() {
         return unmodifiableSet(linkedCells.keySet());
     }
 
@@ -97,15 +97,12 @@ public class Cell {
         return neighbours;
     }
 
-    // TODO add equals and hash so remove works
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cell cell = (Cell) o;
-        return row == cell.row &&
-                column == cell.column;
+        return row == cell.row && column == cell.column;
     }
 
     @Override

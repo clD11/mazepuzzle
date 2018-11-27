@@ -2,35 +2,54 @@ package com.github.mazepuzzle.core;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 class CellTest {
 
-    private final Cell cell = new Cell(0, 0);
+    private final Random random = new Random();
+
+    private final Cell cell = new Cell(random.nextInt(), random.nextInt());
 
     @Test
-    void shouldLinkCellBidirectional() {
-        Cell linkedCell = new Cell(1, 1);
-        cell.linkCell(linkedCell);
-        assertThat(cell.containsCell(linkedCell), is(true));
-        assertThat(linkedCell.containsCell(cell), is(true));
+    void shouldReturnTrueWhenCellHasLink() {
+        Cell expected = new Cell(random.nextInt(), random.nextInt());
+        cell.addLink(expected);
+        assertThat(cell.hasLink(expected), is(true));
     }
 
     @Test
-    void shouldNotLinkCellWhenAlreadyLinked() {
-        Cell linkedCell = mock(Cell.class);
-        when(linkedCell.containsCell(cell)).thenReturn(true);
-        cell.linkCell(linkedCell);
-        verify(linkedCell, never()).linkCell(cell);
+    void shouldAddAndRemoveBidirectionalLink() {
+        Cell expected = new Cell(random.nextInt(), random.nextInt());
+
+        cell.addLink(expected);
+        assertThat(cell.hasLink(expected), is(true));
+        assertThat(expected.hasLink(cell), is(true));
+
+        cell.removeLink(expected);
+        assertThat(cell.hasLink(expected), is(false));
+        assertThat(expected.hasLink(cell), is(false));
     }
 
     @Test
-    void shouldNotHaveLinkedCell() {
-        Cell linkedCell = mock(Cell.class);
-        assertThat(cell.containsCell(linkedCell), is(false));
-    }
+    void shouldReturnAllLinkedCells() {
+        Set<Cell> expected = new HashSet<>();
+        expected.add(mock(Cell.class));
+        expected.add(mock(Cell.class));
+        expected.add(mock(Cell.class));
+        expected.add(mock(Cell.class));
 
-    // TODO finish test
+        for (Cell cell : expected) {
+            this.cell.addLink(cell);
+        }
+
+        Set<Cell> actual = cell.allLinkedCells();
+
+        assertThat(actual, is(expected));
+    }
 }

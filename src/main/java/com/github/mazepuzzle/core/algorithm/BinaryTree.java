@@ -27,7 +27,7 @@ public class BinaryTree {
 
             if (!neighbours.isEmpty()) {
                 Cell randomNeighbour = neighbours.get(random.nextInt(neighbours.size()));
-                cell.linkCell(randomNeighbour);
+                cell.addLink(randomNeighbour);
             }
 
         }
