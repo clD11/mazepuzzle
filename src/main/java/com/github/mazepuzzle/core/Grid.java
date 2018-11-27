@@ -1,5 +1,9 @@
 package com.github.mazepuzzle.core;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Grid {
 
     private final int rows;
@@ -44,6 +48,15 @@ public class Grid {
         }
 
         return grid[row][column];
+    }
+
+    public Set<Cell> allCells() {
+        Set<Cell> cells = new HashSet<>();
+        for (int i = 0; i < rows; ++i) {
+            cells.addAll(Arrays.asList(grid[i])
+                    .subList(0, columns));
+        }
+        return cells;
     }
 
     public int size() {
