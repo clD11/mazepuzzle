@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.mock;
 
 class CellTest {
@@ -48,8 +48,30 @@ class CellTest {
             this.cell.addLink(cell);
         }
 
-        Set<Cell> actual = cell.allLinkedCells();
+        Set<Cell> actual = cell.getAllLinks();
 
         assertThat(actual, is(expected));
+    }
+
+    @Test
+    void shouldReturnNeighbourNorth() {
+        Cell north = mock(Cell.class);
+        cell.setNorth(north);
+
+        Cell south = mock(Cell.class);
+        cell.setSouth(south);
+
+        Cell east = mock(Cell.class);
+        cell.setEast(east);
+
+        Cell west = mock(Cell.class);
+        cell.setWest(west);
+
+        assertThat(cell.getNeighbours(), contains(north, south, east, west));
+    }
+
+    @Test
+    void shouldNotReturnAnyNeighboursWhenNonSet() {
+        assertThat(cell.getNeighbours(), is(empty()));
     }
 }

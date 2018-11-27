@@ -71,11 +71,11 @@ public class Cell {
         return this.linkedCells.containsKey(cell);
     }
 
-    public Set<Cell> allLinkedCells() {
+    public Set<Cell> getAllLinks() {
         return unmodifiableSet(linkedCells.keySet());
     }
 
-    public List<Cell> neighbours() {
+    public List<Cell> getNeighbours() {
         List<Cell> neighbours = new ArrayList<>();
 
         if (north != null) {
