@@ -54,7 +54,7 @@ class CellTest {
     }
 
     @Test
-    void shouldReturnNeighbourNorth() {
+    void shouldReturnAllNeighbours() {
         Cell north = mock(Cell.class);
         cell.setNorth(north);
 

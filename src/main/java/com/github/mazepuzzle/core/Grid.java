@@ -38,6 +38,13 @@ public class Grid {
         }
     }
 
+    public void markCell(int row, int column) {
+        Cell cell = findCell(row, column);
+        if (cell != null) {
+            cell.mark();
+        }
+    }
+
     private Cell findCell(int row, int column) {
         if (row < 0 || row >= rows) {
             return null;
@@ -85,8 +92,10 @@ public class Grid {
             for (int column = 0; column < columns; ++column) {
                 Cell cell = grid[row][column];
 
+                String marked = " * ";
+
                 String eastBoundary = cell.hasLink(cell.getEast()) ? " " : "|";
-                top.append("   " + eastBoundary);
+                top.append( ((cell.isMarked()) ? marked : "   ") + eastBoundary);
 
                 String southBoundary = cell.hasLink(cell.getSouth()) ? "   " : "---";
                 bottom.append(southBoundary + "+");

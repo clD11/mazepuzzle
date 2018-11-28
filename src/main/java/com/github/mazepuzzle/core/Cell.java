@@ -15,6 +15,16 @@ public class Cell {
     private Cell east;
     private Cell west;
 
+    private boolean mark;
+
+    public void mark() {
+        mark = true;
+    }
+
+    public boolean isMarked() {
+        return this.mark;
+    }
+
     public Cell(int row, int column) {
         this.row = row;
         this.column = column;
