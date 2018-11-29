@@ -45,7 +45,13 @@ public class Grid {
         }
     }
 
-    private Cell findCell(int row, int column) {
+    public boolean canMove(int[] currentPosition, int[] nextPosition) {
+        Cell currentCell = findCell(currentPosition[0], currentPosition[1]);
+        Cell nextCell = findCell(nextPosition[0], nextPosition[1]);
+        return currentCell.hasLink(nextCell);
+    }
+
+    public Cell findCell(int row, int column) {
         if (row < 0 || row >= rows) {
             return null;
         }
